@@ -1,12 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'wouter';
 import { useQuery } from '@tanstack/react-query';
 import type { CartItemWithProduct } from '@shared/schema';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [location] = useLocation();
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const [location, setLocation] = useLocation();
 
   // Fetch cart items to show cart badge count
   const { data: cartItems, refetch: refetchCart } = useQuery<CartItemWithProduct[]>({
@@ -43,10 +48,30 @@ const Header = () => {
     };
   }, []);
 
-  // Close mobile menu when changing pages
+  // Close mobile menu and search when changing pages
   useEffect(() => {
     setIsMobileMenuOpen(false);
+    setIsSearchOpen(false);
   }, [location]);
+  
+  // Close search when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        isSearchOpen &&
+        searchInputRef.current &&
+        !searchInputRef.current.contains(event.target as Node) &&
+        !(event.target as Element).closest('button')
+      ) {
+        setIsSearchOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isSearchOpen]);
 
   return (
     <header className={`sticky top-0 z-50 bg-white ${isScrolled ? 'shadow-md' : 'shadow-sm'} transition-shadow`}>
@@ -71,12 +96,51 @@ const Header = () => {
           
           {/* Action Buttons */}
           <div className="flex items-center space-x-4">
-            <button 
-              className="p-2 hover:text-primary transition-colors" 
-              aria-label="Search"
-            >
-              <i className="bx bx-search text-xl"></i>
-            </button>
+            <div className="relative">
+              <button 
+                className="p-2 hover:text-primary transition-colors" 
+                aria-label="Search"
+                onClick={() => {
+                  setIsSearchOpen(!isSearchOpen);
+                  if (!isSearchOpen) {
+                    setTimeout(() => {
+                      searchInputRef.current?.focus();
+                    }, 100);
+                  }
+                }}
+              >
+                <i className="bx bx-search text-xl"></i>
+              </button>
+              
+              {/* Search Popup */}
+              {isSearchOpen && (
+                <div className="absolute right-0 top-full mt-2 w-64 md:w-80 bg-white shadow-lg rounded-md p-3 z-50">
+                  <form 
+                    className="flex items-center gap-2"
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      if (searchQuery.trim()) {
+                        setLocation(`/shop?q=${encodeURIComponent(searchQuery)}`);
+                        setIsSearchOpen(false);
+                        setSearchQuery('');
+                      }
+                    }}
+                  >
+                    <Input
+                      ref={searchInputRef}
+                      type="search"
+                      placeholder="Tìm kiếm sản phẩm..."
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      className="flex-1"
+                    />
+                    <Button type="submit" size="sm" className="bg-primary hover:bg-primary/90">
+                      <i className="bx bx-search text-sm"></i>
+                    </Button>
+                  </form>
+                </div>
+              )}
+            </div>
             
             <Link href="/checkout">
               <a className="p-2 hover:text-primary transition-colors">

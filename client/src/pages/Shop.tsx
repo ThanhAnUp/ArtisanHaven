@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useLocation } from 'wouter';
 import ProductCard from '@/components/ProductCard';
@@ -7,11 +7,25 @@ import { Skeleton } from '@/components/ui/skeleton';
 import type { Product } from '@shared/schema';
 
 const Shop = () => {
+  // Get the current location to parse URL params
+  const [location, setLocation] = useLocation();
+  
+  // Parse URL parameters on initial load
+  const getUrlParams = () => {
+    if (!location.includes('?')) return { category: null, q: null };
+    
+    const params = new URLSearchParams(location.split('?')[1]);
+    return {
+      category: params.get('category'),
+      q: params.get('q')
+    };
+  };
+  
   // Basic state
-  const [activeCategory, setActiveCategory] = useState('all');
-  const [searchTerm, setSearchTerm] = useState('');
-  const [isSearching, setIsSearching] = useState(false);
-  const [, setLocation] = useLocation();
+  const urlParams = getUrlParams();
+  const [activeCategory, setActiveCategory] = useState(urlParams.category || 'all');
+  const [searchTerm, setSearchTerm] = useState(urlParams.q || '');
+  const [isSearching, setIsSearching] = useState(!!urlParams.q);
 
   // Fetch all products
   const { data: allProducts, isLoading } = useQuery<Product[]>({
@@ -49,6 +63,7 @@ const Shop = () => {
     e.preventDefault();
     if (searchTerm.trim()) {
       setIsSearching(true);
+      setLocation(`/shop?q=${encodeURIComponent(searchTerm)}`);
     }
   };
 
@@ -56,6 +71,7 @@ const Shop = () => {
   const resetSearch = () => {
     setSearchTerm('');
     setIsSearching(false);
+    setLocation('/shop');
   };
 
   // Determine which products to display
@@ -75,9 +91,9 @@ const Shop = () => {
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-4xl font-heading font-semibold mb-2">Shop Our Collection</h1>
+          <h1 className="text-4xl font-heading font-semibold mb-2">Bộ Sưu Tập Sản Phẩm</h1>
           <p className="text-muted-foreground">
-            Discover handcrafted treasures made with love and exceptional craftsmanship
+            Khám phá những sản phẩm thủ công tinh tế được làm bằng tình yêu và kỹ thuật điêu luyện
           </p>
         </div>
 
@@ -92,7 +108,7 @@ const Shop = () => {
               <div className="relative flex-1">
                 <input
                   type="text"
-                  placeholder="Search products..."
+                  placeholder="Tìm kiếm sản phẩm..."
                   className="pl-10 pr-4 py-2 w-full border border-border rounded-l focus:outline-none focus:ring-1 focus:ring-primary"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
@@ -112,7 +128,7 @@ const Shop = () => {
                 type="submit" 
                 className="rounded-l-none bg-primary hover:bg-primary/90"
               >
-                Search
+                Tìm kiếm
               </Button>
             </form>
 
@@ -123,35 +139,35 @@ const Shop = () => {
                 active={activeCategory === 'all'} 
                 onClick={() => handleCategoryChange('all')}
               >
-                All
+                Tất cả
               </CategoryButton>
               <CategoryButton 
                 category="jewelry" 
                 active={activeCategory === 'jewelry'} 
                 onClick={() => handleCategoryChange('jewelry')}
               >
-                Jewelry
+                Trang sức
               </CategoryButton>
               <CategoryButton 
                 category="home_decor" 
                 active={activeCategory === 'home_decor'} 
                 onClick={() => handleCategoryChange('home_decor')}
               >
-                Home Decor
+                Trang trí nhà
               </CategoryButton>
               <CategoryButton 
                 category="ceramics" 
                 active={activeCategory === 'ceramics'} 
                 onClick={() => handleCategoryChange('ceramics')}
               >
-                Ceramics
+                Gốm sứ
               </CategoryButton>
               <CategoryButton 
                 category="textiles" 
                 active={activeCategory === 'textiles'} 
                 onClick={() => handleCategoryChange('textiles')}
               >
-                Textiles
+                Dệt may
               </CategoryButton>
             </div>
           </div>
@@ -186,17 +202,17 @@ const Shop = () => {
             <div className="text-5xl mb-4">
               <i className="bx bx-search"></i>
             </div>
-            <h3 className="text-2xl font-medium mb-2">No products found</h3>
+            <h3 className="text-2xl font-medium mb-2">Không tìm thấy sản phẩm</h3>
             <p className="text-muted-foreground mb-6">
               {isSearching 
-                ? `We couldn't find any products matching "${searchTerm}"`
-                : `No products available in this category`}
+                ? `Không tìm thấy sản phẩm nào khớp với từ khóa "${searchTerm}"`
+                : `Không có sản phẩm nào trong danh mục này`}
             </p>
             <Button 
               onClick={isSearching ? resetSearch : () => handleCategoryChange('all')} 
               className="bg-primary hover:bg-primary/90"
             >
-              {isSearching ? 'Clear Search' : 'Show All Products'}
+              {isSearching ? 'Xóa tìm kiếm' : 'Xem tất cả sản phẩm'}
             </Button>
           </div>
         )}
