@@ -34,6 +34,9 @@ const Shop = () => {
       setSearchTerm(params.q);
       setIsSearching(true);
       setActiveCategory('all');
+      
+      // Log cho debug
+      console.log('Đã nhận từ khóa tìm kiếm từ URL:', params.q);
     } else if (params.category) {
       setActiveCategory(params.category);
       setIsSearching(false);
@@ -63,18 +66,32 @@ const Shop = () => {
 
   // Fetch products by search term
   const encodedSearchTerm = encodeURIComponent(searchTerm);
+  
+  // Debug log
+  useEffect(() => {
+    if (isSearching && searchTerm) {
+      console.log('Đang gửi yêu cầu tìm kiếm:', searchTerm);
+    }
+  }, [isSearching, searchTerm]);
+  
   const { data: searchResults, isLoading: isLoadingSearch } = useQuery<Product[]>({
-    queryKey: ['/api/products/search', encodedSearchTerm],
+    queryKey: ['/api/products/search', searchTerm],
     queryFn: async () => {
+      console.log('Gọi API tìm kiếm với từ khóa:', searchTerm);
       const res = await fetch(`/api/products/search?q=${encodedSearchTerm}`);
       if (!res.ok) throw new Error('Không thể tìm kiếm sản phẩm');
-      return res.json();
+      const data = await res.json();
+      console.log('Kết quả tìm kiếm:', data);
+      return data;
     },
     enabled: isSearching && searchTerm.length > 0,
+    refetchOnWindowFocus: false,
+    retry: 1
   });
 
   // Handle category filter change
   const handleCategoryChange = (category: string) => {
+    console.log('Đang chuyển đổi danh mục sang:', category);
     setActiveCategory(category);
     setIsSearching(false);
     setSearchTerm('');
@@ -83,24 +100,62 @@ const Shop = () => {
     if (category === 'all') {
       setLocation('/shop');
     } else {
+      // Gọi trực tiếp API cho danh mục để đảm bảo dữ liệu được tải
+      setTimeout(() => {
+        fetch(`/api/products/category/${category}`)
+          .then(res => {
+            if (!res.ok) throw new Error('Lỗi lấy danh mục');
+            return res.json();
+          })
+          .then(data => {
+            console.log('Kết quả danh mục trực tiếp:', data);
+          })
+          .catch(err => {
+            console.error('Lỗi khi lấy danh mục:', err);
+          });
+      }, 100);
+      
       setLocation(`/shop?category=${category}`);
     }
   };
 
-  // Handle search
+  // Handle search - import queryClient nếu cần
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchTerm.trim()) {
       setIsSearching(true);
+      
+      // Đặt một timeout để đảm bảo state được cập nhật trước khi API được gọi
+      setTimeout(() => {
+        // Gọi API một cách trực tiếp bên cạnh việc cập nhật URL
+        fetch(`/api/products/search?q=${encodeURIComponent(searchTerm)}`)
+          .then(res => {
+            if (!res.ok) throw new Error('Lỗi tìm kiếm');
+            return res.json();
+          })
+          .then(data => {
+            console.log('Kết quả tìm kiếm trực tiếp:', data);
+          })
+          .catch(err => {
+            console.error('Lỗi khi tìm kiếm:', err);
+          });
+      }, 100);
+      
       setLocation(`/shop?q=${encodeURIComponent(searchTerm)}`);
     }
   };
 
   // Reset search
   const resetSearch = () => {
+    console.log('Đang reset tìm kiếm và quay về trang tất cả sản phẩm');
     setSearchTerm('');
     setIsSearching(false);
     setLocation('/shop');
+    
+    // Tải lại trang để đảm bảo trạng thái được làm mới
+    setTimeout(() => {
+      window.location.href = '/shop';
+    }, 100);
   };
 
   // Determine which products to display
