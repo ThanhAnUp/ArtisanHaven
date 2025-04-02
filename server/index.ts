@@ -1,6 +1,8 @@
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
+import { db } from "./db";
+import { pgStorage } from "./pgStorage";
 
 const app = express();
 app.use(express.json());
@@ -37,6 +39,14 @@ app.use((req, res, next) => {
 });
 
 (async () => {
+  try {
+    // Khởi tạo bảng và dữ liệu mẫu
+    await pgStorage.initializeDatabase();
+    log("Database initialized successfully with sample data.");
+  } catch (error) {
+    log("Error initializing database: " + error);
+  }
+
   const server = await registerRoutes(app);
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
