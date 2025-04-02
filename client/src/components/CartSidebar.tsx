@@ -35,7 +35,7 @@ const CartSidebar = () => {
   // Fetch cart items
   const { data: cartItems, isLoading, refetch } = useQuery<CartItemWithProduct[]>({
     queryKey: ['/api/cart'],
-    enabled: isOpen, // Only fetch when cart is open
+    // Always fetch cart data as soon as component mounts
   });
 
   // Remove item from cart

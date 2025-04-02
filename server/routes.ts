@@ -14,10 +14,10 @@ const MemoryStore = memorystore(session);
 
 // Helper function to get or create a session ID
 const getOrCreateSessionId = (req: any): string => {
-  if (!req.session.id) {
-    req.session.id = uuidv4();
+  if (!req.session.cartId) {
+    req.session.cartId = uuidv4();
   }
-  return req.session.id;
+  return req.session.cartId;
 };
 
 export async function registerRoutes(app: Express): Promise<Server> {

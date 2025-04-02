@@ -9,9 +9,18 @@ const Header = () => {
   const [location] = useLocation();
 
   // Fetch cart items to show cart badge count
-  const { data: cartItems } = useQuery<CartItemWithProduct[]>({
+  const { data: cartItems, refetch: refetchCart } = useQuery<CartItemWithProduct[]>({
     queryKey: ['/api/cart'],
   });
+  
+  // Refetch cart items periodically to ensure badge is updated
+  useEffect(() => {
+    const interval = setInterval(() => {
+      refetchCart();
+    }, 3000); // Refetch every 3 seconds
+    
+    return () => clearInterval(interval);
+  }, [refetchCart]);
 
   // Get total items in cart
   const cartItemCount = cartItems?.reduce((count, item) => count + item.quantity, 0) || 0;
