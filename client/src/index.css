@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 33 30% 97%;
+    --foreground: 25 4% 25%;
+    
+    --card: 0 0% 100%;
+    --card-foreground: 25 4% 25%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 25 4% 25%;
+    
+    --primary: 32 33% 49%;
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 34 40% 83%;
+    --secondary-foreground: 25 4% 25%;
+    
+    --muted: 33 20% 95%;
+    --muted-foreground: 25 4% 45%;
+    
+    --accent: 177 11% 58%;
+    --accent-foreground: 0 0% 100%;
+    
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    
+    --border: 34 40% 83%;
+    --input: 34 40% 83%;
+    --ring: 32 33% 49%;
+    
+    --chart-1: 32 33% 49%;
+    --chart-2: 34 40% 83%;
+    --chart-3: 177 11% 58%;
+    --chart-4: 22 5% 26%;
+    --chart-5: 33 20% 95%;
+    
+    --radius: 0.5rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+  }
+
+  .font-heading {
+    font-family: 'Playfair Display', serif;
+  }
+
+  .font-body {
+    font-family: 'Inter', sans-serif;
+  }
+
+  .font-accent {
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .product-card:hover .quick-view {
+    opacity: 1;
+  }
+  
+  .product-card:hover img {
+    transform: scale(1.05);
+  }
+}
