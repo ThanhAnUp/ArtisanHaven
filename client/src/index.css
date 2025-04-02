@@ -38,6 +38,10 @@
     --chart-4: 22 5% 26%;
     --chart-5: 33 20% 95%;
     
+    --neutral: 22 10% 40%;
+    --neutral-dark: 22 15% 25%;
+    --neutral-light: 22 10% 95%;
+    
     --radius: 0.5rem;
   }
 
