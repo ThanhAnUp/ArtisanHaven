@@ -87,10 +87,10 @@ const Header = () => {
             
             {/* Desktop Navigation */}
             <nav className="hidden md:flex space-x-6">
-              <NavLink href="/" label="Home" />
-              <NavLink href="/shop" label="Shop" />
-              <NavLink href="/about" label="About" />
-              <NavLink href="/contact" label="Contact" />
+              <NavLink href="/" label="Trang chủ" />
+              <NavLink href="/shop" label="Cửa hàng" />
+              <NavLink href="/about" label="Giới thiệu" />
+              <NavLink href="/contact" label="Liên hệ" />
             </nav>
           </div>
           
@@ -176,10 +176,10 @@ const Header = () => {
         {isMobileMenuOpen && (
           <div className="md:hidden mt-4 pb-2">
             <nav className="flex flex-col space-y-3">
-              <NavLink href="/" label="Home" />
-              <NavLink href="/shop" label="Shop" />
-              <NavLink href="/about" label="About" />
-              <NavLink href="/contact" label="Contact" />
+              <NavLink href="/" label="Trang chủ" />
+              <NavLink href="/shop" label="Cửa hàng" />
+              <NavLink href="/about" label="Giới thiệu" />
+              <NavLink href="/contact" label="Liên hệ" />
             </nav>
           </div>
         )}

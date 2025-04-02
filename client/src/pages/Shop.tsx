@@ -10,7 +10,7 @@ const Shop = () => {
   // Get the current location to parse URL params
   const [location, setLocation] = useLocation();
   
-  // Parse URL parameters on initial load
+  // Parse URL parameters
   const getUrlParams = () => {
     if (!location.includes('?')) return { category: null, q: null };
     
@@ -26,6 +26,24 @@ const Shop = () => {
   const [activeCategory, setActiveCategory] = useState(urlParams.category || 'all');
   const [searchTerm, setSearchTerm] = useState(urlParams.q || '');
   const [isSearching, setIsSearching] = useState(!!urlParams.q);
+  
+  // Update states when URL changes
+  useEffect(() => {
+    const params = getUrlParams();
+    if (params.q) {
+      setSearchTerm(params.q);
+      setIsSearching(true);
+      setActiveCategory('all');
+    } else if (params.category) {
+      setActiveCategory(params.category);
+      setIsSearching(false);
+      setSearchTerm('');
+    } else {
+      setActiveCategory('all');
+      setIsSearching(false);
+      setSearchTerm('');
+    }
+  }, [location]);
 
   // Fetch all products
   const { data: allProducts, isLoading } = useQuery<Product[]>({
@@ -34,13 +52,24 @@ const Shop = () => {
 
   // Fetch products by category when filter is applied
   const { data: filteredProducts, isLoading: isLoadingFiltered } = useQuery<Product[]>({
-    queryKey: [`/api/products/category/${activeCategory}`],
+    queryKey: ['/api/products/category', activeCategory],
+    queryFn: async () => {
+      const res = await fetch(`/api/products/category/${activeCategory}`);
+      if (!res.ok) throw new Error('Không thể tải danh mục sản phẩm');
+      return res.json();
+    },
     enabled: activeCategory !== 'all',
   });
 
   // Fetch products by search term
+  const encodedSearchTerm = encodeURIComponent(searchTerm);
   const { data: searchResults, isLoading: isLoadingSearch } = useQuery<Product[]>({
-    queryKey: [`/api/products/search?q=${searchTerm}`],
+    queryKey: ['/api/products/search', encodedSearchTerm],
+    queryFn: async () => {
+      const res = await fetch(`/api/products/search?q=${encodedSearchTerm}`);
+      if (!res.ok) throw new Error('Không thể tìm kiếm sản phẩm');
+      return res.json();
+    },
     enabled: isSearching && searchTerm.length > 0,
   });
 
