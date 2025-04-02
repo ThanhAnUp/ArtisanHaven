@@ -106,10 +106,10 @@ export class MemStorage implements IStorage {
   private initializeProducts() {
     const sampleProducts: InsertProduct[] = [
       {
-        name: "Handcrafted Gold Necklace",
-        description: "Elegantly designed gold necklace handcrafted with precision and care. This stunning piece features delicate links and a subtle pendant that catches the light beautifully.",
-        price: "89.00",
-        imageUrl: "https://images.unsplash.com/photo-1600721391776-b5cd0e0048f9?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+        name: "Dây Chuyền Vàng Thủ Công",
+        description: "Dây chuyền vàng được thiết kế tinh tế, được chế tác thủ công với sự tỉ mỉ và chăm sóc. Sản phẩm tuyệt đẹp này có các mắt xích tinh xảo và mặt dây chuyền nhỏ gọn bắt sáng tuyệt đẹp.",
+        price: "2.100.000",
+        imageUrl: "https://images.pexels.com/photos/10983783/pexels-photo-10983783.jpeg?auto=compress&cs=tinysrgb&w=500",
         category: "jewelry",
         inStock: true,
         featured: true,
@@ -117,10 +117,10 @@ export class MemStorage implements IStorage {
         reviewCount: 24
       },
       {
-        name: "Macrame Wall Hanging",
-        description: "Beautiful handwoven macrame wall hanging that adds texture and warmth to any space. Made from 100% cotton rope with natural wooden beads.",
-        price: "65.00",
-        imageUrl: "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+        name: "Trang Trí Macrame Treo Tường",
+        description: "Trang trí macrame treo tường được dệt thủ công đẹp mắt mang lại kết cấu và sự ấm áp cho bất kỳ không gian nào. Được làm từ 100% dây cotton với hạt gỗ tự nhiên.",
+        price: "1.550.000",
+        imageUrl: "https://images.pexels.com/photos/4992459/pexels-photo-4992459.jpeg?auto=compress&cs=tinysrgb&w=500",
         category: "home_decor",
         inStock: true,
         featured: true,
@@ -128,10 +128,10 @@ export class MemStorage implements IStorage {
         reviewCount: 18
       },
       {
-        name: "Handmade Ceramic Bowl Set",
-        description: "Set of four uniquely crafted ceramic bowls perfect for everyday use or special occasions. Each bowl features a beautiful reactive glaze that makes it one-of-a-kind.",
-        price: "120.00",
-        imageUrl: "https://images.unsplash.com/photo-1610701596061-2ecf227e85b2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+        name: "Bộ Bát Gốm Thủ Công",
+        description: "Bộ bốn bát gốm được chế tác độc đáo hoàn hảo cho việc sử dụng hàng ngày hoặc các dịp đặc biệt. Mỗi bát có lớp men phản ứng đẹp mắt làm cho nó trở nên độc nhất vô nhị.",
+        price: "2.850.000",
+        imageUrl: "https://images.pexels.com/photos/2148215/pexels-photo-2148215.jpeg?auto=compress&cs=tinysrgb&w=500",
         category: "ceramics",
         inStock: true,
         featured: true,
@@ -139,10 +139,10 @@ export class MemStorage implements IStorage {
         reviewCount: 12
       },
       {
-        name: "Artisan Silver Earrings",
-        description: "Elegantly designed silver earrings handcrafted with precision. These lightweight earrings feature a modern design that complements any outfit.",
-        price: "45.00",
-        imageUrl: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+        name: "Bông Tai Bạc Thủ Công",
+        description: "Bông tai bạc được thiết kế tinh tế và chế tác thủ công với độ chính xác cao. Những chiếc bông tai nhẹ này có thiết kế hiện đại phù hợp với mọi trang phục.",
+        price: "1.050.000",
+        imageUrl: "https://images.pexels.com/photos/10890970/pexels-photo-10890970.jpeg?auto=compress&cs=tinysrgb&w=500",
         category: "jewelry",
         inStock: true,
         featured: true,
@@ -150,10 +150,10 @@ export class MemStorage implements IStorage {
         reviewCount: 9
       },
       {
-        name: "Handwoven Basket",
-        description: "Beautifully handwoven storage basket made from natural seagrass. Perfect for organizing your home while adding a touch of artisanal charm.",
-        price: "79.00",
-        imageUrl: "https://images.unsplash.com/photo-1489533119213-66a5cd877091?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+        name: "Giỏ Đan Thủ Công",
+        description: "Giỏ đựng đồ được đan thủ công đẹp mắt làm từ cỏ biển tự nhiên. Hoàn hảo để tổ chức ngôi nhà của bạn đồng thời mang lại nét quyến rũ thủ công.",
+        price: "1.890.000",
+        imageUrl: "https://images.pexels.com/photos/10756099/pexels-photo-10756099.jpeg?auto=compress&cs=tinysrgb&w=500",
         category: "home_decor",
         inStock: true,
         featured: true,
@@ -161,10 +161,10 @@ export class MemStorage implements IStorage {
         reviewCount: 32
       },
       {
-        name: "Ceramic Flower Vase",
-        description: "Handcrafted ceramic vase with a unique organic shape and matte finish. Perfect for displaying fresh or dried flower arrangements.",
-        price: "55.00",
-        imageUrl: "https://images.unsplash.com/photo-1576020799627-aeac74d58064?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+        name: "Bình Hoa Gốm",
+        description: "Bình gốm được chế tác thủ công với hình dáng hữu cơ độc đáo và bề mặt mờ. Hoàn hảo để trưng bày các bó hoa tươi hoặc khô.",
+        price: "1.350.000",
+        imageUrl: "https://images.pexels.com/photos/6707628/pexels-photo-6707628.jpeg?auto=compress&cs=tinysrgb&w=500",
         category: "ceramics",
         inStock: true,
         featured: true,
@@ -172,10 +172,10 @@ export class MemStorage implements IStorage {
         reviewCount: 7
       },
       {
-        name: "Handmade Wooden Bracelet",
-        description: "Stylish wooden bracelet handcrafted from sustainable materials. Features a comfortable elastic band that fits most wrist sizes.",
-        price: "39.00",
-        imageUrl: "https://images.unsplash.com/photo-1608343288140-5ec0fc5b6010?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+        name: "Vòng Tay Gỗ Thủ Công",
+        description: "Vòng tay gỗ thời trang được chế tác thủ công từ vật liệu bền vững. Có dây đeo co giãn thoải mái phù hợp với hầu hết kích thước cổ tay.",
+        price: "950.000",
+        imageUrl: "https://images.pexels.com/photos/10623914/pexels-photo-10623914.jpeg?auto=compress&cs=tinysrgb&w=500",
         category: "jewelry",
         inStock: true,
         featured: true,
@@ -183,10 +183,10 @@ export class MemStorage implements IStorage {
         reviewCount: 15
       },
       {
-        name: "Hand-painted Throw Pillow",
-        description: "Unique throw pillow with a hand-painted design on 100% linen. Adds an artistic touch to any sofa or bed.",
-        price: "48.00",
-        imageUrl: "https://images.unsplash.com/photo-1517705008128-361805f42e86?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+        name: "Gối Trang Trí Vẽ Tay",
+        description: "Gối ném độc đáo với thiết kế vẽ tay trên vải lanh 100%. Thêm nét nghệ thuật cho bất kỳ ghế sofa hoặc giường nào.",
+        price: "1.150.000",
+        imageUrl: "https://images.pexels.com/photos/6492388/pexels-photo-6492388.jpeg?auto=compress&cs=tinysrgb&w=500",
         category: "home_decor",
         inStock: true,
         featured: true,
@@ -194,10 +194,10 @@ export class MemStorage implements IStorage {
         reviewCount: 21
       },
       {
-        name: "Beaded Statement Necklace",
-        description: "Bold statement necklace featuring handcrafted clay beads in earthy tones. Each piece is unique and makes a striking accessory.",
-        price: "95.00",
-        imageUrl: "https://images.unsplash.com/photo-1630019852942-f89202989a59?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+        name: "Dây Chuyền Hạt Thủ Công",
+        description: "Dây chuyền statement táo bạo với các hạt đất sét thủ công màu tự nhiên. Mỗi món đều độc đáo và tạo nên phụ kiện ấn tượng.",
+        price: "2.250.000",
+        imageUrl: "https://images.pexels.com/photos/9594144/pexels-photo-9594144.jpeg?auto=compress&cs=tinysrgb&w=500",
         category: "jewelry",
         inStock: true,
         featured: false,
@@ -205,10 +205,10 @@ export class MemStorage implements IStorage {
         reviewCount: 16
       },
       {
-        name: "Handwoven Wall Tapestry",
-        description: "Intricately woven wall tapestry made from natural fibers. A stunning focal point for any room.",
-        price: "140.00",
-        imageUrl: "https://images.unsplash.com/photo-1615529328331-f8917597711f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+        name: "Thảm Dệt Treo Tường",
+        description: "Thảm treo tường được dệt phức tạp từ sợi tự nhiên. Một điểm nhấn tuyệt đẹp cho bất kỳ căn phòng nào.",
+        price: "3.350.000",
+        imageUrl: "https://images.pexels.com/photos/8037031/pexels-photo-8037031.jpeg?auto=compress&cs=tinysrgb&w=500",
         category: "textiles",
         inStock: true,
         featured: false,
@@ -216,10 +216,10 @@ export class MemStorage implements IStorage {
         reviewCount: 7
       },
       {
-        name: "Hand-Painted Ceramic Mug",
-        description: "Uniquely designed ceramic mug, individually hand-painted by our artisans. Microwave and dishwasher safe.",
-        price: "28.00",
-        imageUrl: "https://images.unsplash.com/photo-1574311938562-789d16858154?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+        name: "Cốc Gốm Vẽ Tay",
+        description: "Cốc gốm thiết kế độc đáo, được vẽ tay riêng từng chiếc bởi các nghệ nhân của chúng tôi. An toàn với lò vi sóng và máy rửa chén.",
+        price: "650.000",
+        imageUrl: "https://images.pexels.com/photos/4346302/pexels-photo-4346302.jpeg?auto=compress&cs=tinysrgb&w=500",
         category: "ceramics",
         inStock: true,
         featured: false,
@@ -227,10 +227,10 @@ export class MemStorage implements IStorage {
         reviewCount: 29
       },
       {
-        name: "Handcrafted Leather Wallet",
-        description: "Minimalist leather wallet handmade from premium full-grain leather. Features slots for cards and bills with beautiful hand stitching.",
-        price: "65.00",
-        imageUrl: "https://images.unsplash.com/photo-1627123424574-724758594e93?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+        name: "Ví Da Thủ Công",
+        description: "Ví da tối giản được làm thủ công từ da hạt đầy đủ cao cấp. Có các ngăn đựng thẻ và hóa đơn với đường khâu tay đẹp mắt.",
+        price: "1.550.000",
+        imageUrl: "https://images.pexels.com/photos/7334004/pexels-photo-7334004.jpeg?auto=compress&cs=tinysrgb&w=500",
         category: "textiles",
         inStock: true,
         featured: false,
@@ -247,21 +247,21 @@ export class MemStorage implements IStorage {
   private initializeWorkshops() {
     const sampleWorkshops: InsertWorkshop[] = [
       {
-        title: "Ceramic Bowl Making Workshop",
-        description: "Learn the art of hand-building ceramic bowls in this beginner-friendly workshop led by master potter Elena Rodriguez.",
-        imageUrl: "https://images.unsplash.com/photo-1621600411688-4be93c2c1208?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+        title: "Hội Thảo Làm Bát Gốm",
+        description: "Học nghệ thuật làm bát gốm thủ công trong hội thảo thân thiện với người mới bắt đầu này được hướng dẫn bởi nghệ nhân gốm Ngọc Anh.",
+        imageUrl: "https://images.pexels.com/photos/3094351/pexels-photo-3094351.jpeg?auto=compress&cs=tinysrgb&w=800",
         category: "ceramics",
         date: new Date("2023-06-15T10:00:00Z"),
-        price: "85",
+        price: "2.200.000",
         spotsAvailable: 10
       },
       {
-        title: "Silver Jewelry Making Workshop",
-        description: "Create your own sterling silver ring in this hands-on workshop taught by experienced jeweler Marcus Chen.",
-        imageUrl: "https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+        title: "Hội Thảo Làm Trang Sức Bạc",
+        description: "Tự tạo nhẫn bạc của riêng bạn trong hội thảo thực hành này được giảng dạy bởi nhà thiết kế trang sức giàu kinh nghiệm Minh Tuấn.",
+        imageUrl: "https://images.pexels.com/photos/8113923/pexels-photo-8113923.jpeg?auto=compress&cs=tinysrgb&w=800",
         category: "jewelry",
         date: new Date("2023-07-08T14:00:00Z"),
-        price: "120",
+        price: "2.800.000",
         spotsAvailable: 8
       }
     ];
@@ -275,24 +275,24 @@ export class MemStorage implements IStorage {
     const sampleReviews: InsertReview[] = [
       {
         productId: 1,
-        name: "Sarah J.",
-        location: "Los Angeles, CA",
+        name: "Thanh Hà",
+        location: "Hà Nội",
         rating: 5,
-        comment: "The ceramic bowls I purchased are absolutely stunning. The craftsmanship is exceptional, and I love knowing that I'm supporting skilled artisans. Will definitely shop here again!"
+        comment: "Dây chuyền vàng mà tôi mua thực sự tuyệt đẹp. Sự khéo léo trong chế tác rất đặc biệt, và tôi thích việc mình đang hỗ trợ các nghệ nhân tài năng. Chắc chắn sẽ mua sắm ở đây một lần nữa!"
       },
       {
         productId: 2,
-        name: "Michael T.",
-        location: "Chicago, IL",
+        name: "Minh Tú",
+        location: "TP Hồ Chí Minh",
         rating: 5,
-        comment: "I bought a macrame wall hanging as a gift for my sister, and she absolutely loves it! The quality is amazing, and it looks even better in person than in the photos. Shipping was fast too!"
+        comment: "Tôi đã mua trang trí macrame treo tường làm quà tặng cho em gái tôi, và cô ấy hoàn toàn yêu thích nó! Chất lượng thật tuyệt vời, và nó trông còn đẹp hơn cả trong ảnh. Giao hàng cũng nhanh chóng!"
       },
       {
         productId: 4,
-        name: "Emily R.",
-        location: "Portland, OR",
+        name: "Ngọc Mai",
+        location: "Đà Nẵng",
         rating: 4,
-        comment: "The silver earrings I purchased are now my favorite piece of jewelry. The design is unique and the quality is outstanding. I've received so many compliments on them. Highly recommend!"
+        comment: "Đôi bông tai bạc mà tôi mua đã trở thành món trang sức yêu thích của tôi. Thiết kế độc đáo và chất lượng xuất sắc. Tôi đã nhận được rất nhiều lời khen. Khuyên mọi người nên mua!"
       }
     ];
 
