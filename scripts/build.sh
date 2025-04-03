@@ -9,6 +9,7 @@ mkdir -p dist
 
 # Build client
 echo "Building client..."
+npm i
 npm run build
 
 # Build server with esbuild
