@@ -13,7 +13,14 @@ npm run build
 
 # Build server with esbuild
 echo "Building server..."
-npx esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outfile=dist/index.js
+npx esbuild server/index.ts \
+  --platform=node \
+  --packages=external \
+  --bundle \
+  --format=esm \
+  --outfile=dist/index.js \
+  --external:vite \
+  --external:express
 
 # Ensure production environment
 echo "Setting up production environment..."

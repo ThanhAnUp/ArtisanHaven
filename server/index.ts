@@ -1,7 +1,7 @@
 import express from "express";
 import type { Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes.js";
-import { setupVite, serveStatic, log } from "./vite.js";
+import { log } from "./vite.js";
 import { db } from "./db.js";
 import { pgStorage } from "./pgStorage.js";
 
@@ -58,12 +58,12 @@ app.use((req, res, next) => {
     throw err;
   });
 
-  // importantly only setup vite in development and after
-  // setting up all the other routes so the catch-all route
-  // doesn't interfere with the other routes
+  // Setup static file serving and Vite dev server
   if (app.get("env") === "development") {
+    const { setupVite } = await import("./vite.js");
     await setupVite(app, server);
   } else {
+    const { serveStatic } = await import("./vite.js");
     serveStatic(app);
   }
 
