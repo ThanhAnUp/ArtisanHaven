@@ -1,9 +1,10 @@
+
 import express from "express";
 import type { Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes.js";
-import { log } from "./vite.js";
 import { db } from "./db.js";
 import { pgStorage } from "./pgStorage.js";
+import path from "path";
 
 const app = express();
 app.use(express.json());
@@ -32,7 +33,7 @@ app.use((req, res, next) => {
         logLine = logLine.slice(0, 79) + "…";
       }
 
-      log(logLine);
+      console.log(`${new Date().toLocaleTimeString()} [express] ${logLine}`);
     }
   });
 
@@ -41,11 +42,10 @@ app.use((req, res, next) => {
 
 (async () => {
   try {
-    // Khởi tạo bảng và dữ liệu mẫu
     await pgStorage.initializeDatabase();
-    log("Database initialized successfully with sample data.");
+    console.log(`${new Date().toLocaleTimeString()} [express] Database initialized successfully with sample data.`);
   } catch (error) {
-    log("Error initializing database: " + error);
+    console.log(`${new Date().toLocaleTimeString()} [express] Error initializing database: ${error}`);
   }
 
   const server = await registerRoutes(app);
@@ -53,28 +53,22 @@ app.use((req, res, next) => {
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;
     const message = err.message || "Internal Server Error";
-
     res.status(status).json({ message });
     throw err;
   });
 
-  // Setup static file serving and Vite dev server
-  if (app.get("env") === "development") {
+  // Serve static files based on environment
+  if (process.env.NODE_ENV === "development") {
     const { setupVite } = await import("./vite.js");
     await setupVite(app, server);
   } else {
-    // In production, serve static files from dist/public
-    const path = await import("path");
-    const distPath = path.resolve(import.meta.dirname, "public");
+    const distPath = path.resolve("dist/public");
     app.use(express.static(distPath));
-    app.use("*", (_req, res) => {
-      res.sendFile(path.resolve(distPath, "index.html"));
+    app.get("*", (_req, res) => {
+      res.sendFile(path.join(distPath, "index.html"));
     });
   }
 
-  // ALWAYS serve the app on port 5000
-  // this serves both the API and the client.
-  // It is the only port that is not firewalled.
   const port = 5000;
   server.listen(
     {
@@ -83,7 +77,7 @@ app.use((req, res, next) => {
       reusePort: true,
     },
     () => {
-      log(`serving on port ${port}`);
+      console.log(`${new Date().toLocaleTimeString()} [express] serving on port ${port}`);
     },
   );
 })();
