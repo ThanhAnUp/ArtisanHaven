@@ -11,13 +11,9 @@ mkdir -p dist
 echo "Building client..."
 npm run build
 
-# Build server with tsc
+# Build server with esbuild
 echo "Building server..."
-npx tsc --project tsconfig.json
-
-# Create ES module entry point
-echo "Creating ES module entry point..."
-echo "import './server/index.js';" > dist/index.js
+npx esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outfile=dist/index.js
 
 # Ensure production environment
 echo "Setting up production environment..."
