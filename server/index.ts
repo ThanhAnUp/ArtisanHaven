@@ -1,8 +1,9 @@
-import express, { Request, Response, NextFunction } from "express";
-import { registerRoutes } from "./routes";
-import { setupVite, serveStatic, log } from "./vite";
-import { db } from "./db";
-import { pgStorage } from "./pgStorage";
+import express from "express";
+import type { Request, Response, NextFunction } from "express";
+import { registerRoutes } from "./routes.js";
+import { setupVite, serveStatic, log } from "./vite.js";
+import { db } from "./db.js";
+import { pgStorage } from "./pgStorage.js";
 
 const app = express();
 app.use(express.json());

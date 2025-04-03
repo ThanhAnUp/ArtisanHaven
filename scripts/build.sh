@@ -1,3 +1,4 @@
+
 #!/bin/bash
 
 # Install dependencies 
@@ -14,6 +15,10 @@ npm run build
 echo "Building server..."
 npx tsc --project tsconfig.json
 
+# Create ES module entry point
+echo "Creating ES module entry point..."
+echo "import './server/index.js';" > dist/index.js
+
 # Ensure production environment
 echo "Setting up production environment..."
 export NODE_ENV=production
@@ -23,11 +28,6 @@ if [ -d "/opt/render/project/src" ]; then
   echo "Copying build files to Render path..."
   mkdir -p /opt/render/project/src/dist
   cp -r dist/* /opt/render/project/src/dist/
-  # Create a server-only version if client build failed.  This is a safeguard, though less likely to be needed with the new build process.
-  if [ ! -f "/opt/render/project/src/dist/index.js" ]; then
-    echo "Creating backup index.js..."
-    echo "require('./server/index.js');" > /opt/render/project/src/dist/index.js
-  fi
 fi
 
 # Make migration and seed scripts executable
