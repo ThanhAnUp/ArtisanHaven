@@ -1,4 +1,3 @@
-
 import express from "express";
 import type { Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes.js";
@@ -13,7 +12,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use((req, res, next) => {
   const start = Date.now();
   const path = req.path;
-  let capturedJsonResponse = undefined;
+  let capturedJsonResponse: any = undefined;
 
   const originalResJson = res.json;
   res.json = function (bodyJson, ...args) {
@@ -43,9 +42,13 @@ app.use((req, res, next) => {
 (async () => {
   try {
     await pgStorage.initializeDatabase();
-    console.log(`${new Date().toLocaleTimeString()} [express] Database initialized successfully with sample data.`);
+    console.log(
+      `${new Date().toLocaleTimeString()} [express] Database initialized successfully with sample data.`,
+    );
   } catch (error) {
-    console.log(`${new Date().toLocaleTimeString()} [express] Error initializing database: ${error}`);
+    console.log(
+      `${new Date().toLocaleTimeString()} [express] Error initializing database: ${error}`,
+    );
   }
 
   const server = await registerRoutes(app);
@@ -59,22 +62,33 @@ app.use((req, res, next) => {
 
   // Serve static files based on environment
   const publicPath = path.resolve("dist/public");
-  if (process.env.NODE_ENV === "development") {
-    const { setupVite } = await import("./vite.js");
-    await setupVite(app, server);
-  } else {
-    // In production, serve from dist/public directory
-    app.use(express.static(publicPath));
-    app.get("*", (_req, res) => {
-      // Ensure the response is sent even if file doesn't exist
-      res.sendFile(path.join(publicPath, "index.html"), (err) => {
-        if (err) {
-          console.error("Error sending file:", err);
-          res.status(500).send("Internal Server Error");
-        }
-      });
+  // if (process.env.NODE_ENV === "development") {
+  //   const { setupVite } = await import("./vite.js");
+  //   await setupVite(app, server);
+  // } else {
+  //   // In production, serve from dist/public directory
+  //   app.use(express.static(publicPath));
+  //   app.get("*", (_req, res) => {
+  //     // Ensure the response is sent even if file doesn't exist
+  //     res.sendFile(path.join(publicPath, "index.html"), (err) => {
+  //       if (err) {
+  //         console.error("Error sending file:", err);
+  //         res.status(500).send("Internal Server Error");
+  //       }
+  //     });
+  //   });
+  // }
+
+  app.use(express.static(publicPath));
+  app.get("*", (_req, res) => {
+    // Ensure the response is sent even if file doesn't exist
+    res.sendFile(path.join(publicPath, "index.html"), (err) => {
+      if (err) {
+        console.error("Error sending file:", err);
+        res.status(500).send("Internal Server Error");
+      }
     });
-  }
+  });
 
   const port = 5000;
   server.listen(
@@ -84,7 +98,9 @@ app.use((req, res, next) => {
       reusePort: true,
     },
     () => {
-      console.log(`${new Date().toLocaleTimeString()} [express] serving on port ${port}`);
+      console.log(
+        `${new Date().toLocaleTimeString()} [express] serving on port ${port}`,
+      );
     },
   );
 })();
