@@ -58,15 +58,21 @@ app.use((req, res, next) => {
   });
 
   // Serve static files based on environment
+  const publicPath = path.resolve("dist/public");
   if (process.env.NODE_ENV === "development") {
     const { setupVite } = await import("./vite.js");
     await setupVite(app, server);
   } else {
     // In production, serve from dist/public directory
-    const publicPath = path.resolve("dist/public");
     app.use(express.static(publicPath));
     app.get("*", (_req, res) => {
-      res.sendFile(path.join(publicPath, "index.html"));
+      // Ensure the response is sent even if file doesn't exist
+      res.sendFile(path.join(publicPath, "index.html"), (err) => {
+        if (err) {
+          console.error("Error sending file:", err);
+          res.status(500).send("Internal Server Error");
+        }
+      });
     });
   }
 
