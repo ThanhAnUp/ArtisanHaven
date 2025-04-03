@@ -211,6 +211,41 @@
 
 - Tham khảo bảng giá hiện tại tại: [Render Pricing](https://render.com/pricing)
 
+## Xử lý lỗi phổ biến (Troubleshooting)
+
+### Lỗi về ESM/CommonJS modules
+
+Khi gặp lỗi liên quan đến named exports từ thư viện CommonJS khi sử dụng ESM, giải pháp là sửa cách import:
+
+```javascript
+// Lỗi: Import named exports từ CommonJS module
+import { Client } from 'pg';
+
+// Sửa thành:
+import pkg from 'pg';
+const { Client } = pkg;
+```
+
+Các file có thể gặp vấn đề này:
+- scripts/run-migrations.js
+- scripts/seed-data.js
+
+### Lỗi không tìm thấy file index.js sau khi triển khai
+
+Khi gặp lỗi `Cannot find module '/opt/render/project/src/dist/index.js'` sau khi triển khai lên Render:
+
+1. Kiểm tra log xem quá trình build có thành công không
+2. Đảm bảo script build-render.js đã tạo thư mục dist và file index.js với định dạng cjs
+3. Nếu vẫn gặp lỗi, có thể thay đổi startCommand trong render.yaml:
+   ```yaml
+   startCommand: NODE_ENV=production node dist/index.js
+   ```
+   
+4. Hoặc có thể tạo một file .node-version trong thư mục gốc để chỉ định phiên bản Node.js:
+   ```
+   18.x
+   ```
+
 ## Kết luận
 
 Bạn đã hoàn tất quá trình triển khai cửa hàng đồ thủ công lên Render! Dưới đây là tóm tắt những điểm quan trọng:
