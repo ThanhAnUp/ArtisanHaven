@@ -62,10 +62,11 @@ app.use((req, res, next) => {
     const { setupVite } = await import("./vite.js");
     await setupVite(app, server);
   } else {
-    const distPath = path.resolve(import.meta.dirname, "..", "dist", "public");
-    app.use(express.static(distPath));
+    // In production, serve from dist/public directory
+    const publicPath = path.resolve("dist/public");
+    app.use(express.static(publicPath));
     app.get("*", (_req, res) => {
-      res.sendFile(path.join(distPath, "index.html"));
+      res.sendFile(path.join(publicPath, "index.html"));
     });
   }
 
