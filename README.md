@@ -61,15 +61,17 @@
 1. Sau khi tạo Web Service, Render sẽ tự động bắt đầu quá trình triển khai
 2. Theo dõi quá trình triển khai trong tab "Logs":
    - Bạn sẽ thấy quá trình cài đặt dependencies: `npm install`
-   - Tiếp theo là quá trình build sử dụng script tùy chỉnh: `node scripts/build-render.js`
+   - Tiếp theo là quá trình cài đặt các công cụ build: `npm install -g vite typescript`
+   - Sau đó là quá trình build: `npx vite build` và `npx esbuild server/index.ts...`
+   - Tiếp theo là quá trình sao chép file build vào thư mục Render mong đợi
    - Sau đó là quá trình chạy migrations: `node scripts/run-migrations.js`
    - Cuối cùng là quá trình seed data: `node scripts/seed-data.js`
 3. Kiểm tra xem có lỗi nào trong quá trình triển khai không:
    - Nếu có lỗi, hãy xem xét log để tìm nguyên nhân
    - Các lỗi thường gặp: thiếu quyền thực thi cho scripts, lỗi kết nối database, lỗi trong migrations
    - Nếu gặp lỗi `Cannot find module '/opt/render/project/src/dist/index.js'`, hãy kiểm tra:
-     * Xem script build-render.js đã được thực thi thành công chưa
-     * Đảm bảo thư mục dist đã được tạo và sao chép vào đúng vị trí 
+     * Xem các lệnh build có được thực thi thành công không (có lỗi "command not found" không)
+     * Đảm bảo thư mục dist đã được tạo và sao chép vào đúng vị trí
      * Đảm bảo file index.js đã được tạo với định dạng CommonJS
 4. Sau khi triển khai thành công:
    - Render sẽ cung cấp một URL cho ứng dụng của bạn (dạng: handcraft-store.onrender.com)
@@ -235,13 +237,23 @@ Các file có thể gặp vấn đề này:
 Khi gặp lỗi `Cannot find module '/opt/render/project/src/dist/index.js'` sau khi triển khai lên Render:
 
 1. Kiểm tra log xem quá trình build có thành công không
-2. Đảm bảo script build-render.js đã tạo thư mục dist và file index.js với định dạng cjs
-3. Nếu vẫn gặp lỗi, có thể thay đổi startCommand trong render.yaml:
+2. Nếu gặp lỗi "vite: command not found", hãy đảm bảo rằng trong `scripts/build.sh` đã có lệnh cài đặt Vite toàn cục:
+   ```bash
+   npm install -g vite typescript
+   ```
+
+3. Đảm bảo lệnh copy có quyền thực thi:
+   ```bash
+   mkdir -p /opt/render/project/src/dist
+   cp -r dist/* /opt/render/project/src/dist/
+   ```
+
+4. Nếu vẫn gặp lỗi, có thể thay đổi startCommand trong render.yaml để cung cấp đường dẫn đầy đủ:
    ```yaml
-   startCommand: NODE_ENV=production node dist/index.js
+   startCommand: NODE_ENV=production node /opt/render/project/src/dist/index.js
    ```
    
-4. Hoặc có thể tạo một file .node-version trong thư mục gốc để chỉ định phiên bản Node.js:
+5. Nếu sử dụng Node.js phiên bản mới hơn 18, hãy tạo một file .node-version trong thư mục gốc để chỉ định phiên bản Node.js:
    ```
    18.x
    ```
