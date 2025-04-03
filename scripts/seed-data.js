@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
-import { Client } from 'pg';
+import pkg from 'pg';
+const { Client } = pkg;
 
 // Connect to the database
 const client = new Client({

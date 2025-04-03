@@ -3,7 +3,8 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { Client } from 'pg';
+import pkg from 'pg';
+const { Client } = pkg;
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
