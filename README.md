@@ -61,12 +61,16 @@
 1. Sau khi tạo Web Service, Render sẽ tự động bắt đầu quá trình triển khai
 2. Theo dõi quá trình triển khai trong tab "Logs":
    - Bạn sẽ thấy quá trình cài đặt dependencies: `npm install`
-   - Tiếp theo là quá trình build: `npm run build`
+   - Tiếp theo là quá trình build sử dụng script tùy chỉnh: `node scripts/build-render.js`
    - Sau đó là quá trình chạy migrations: `node scripts/run-migrations.js`
    - Cuối cùng là quá trình seed data: `node scripts/seed-data.js`
 3. Kiểm tra xem có lỗi nào trong quá trình triển khai không:
    - Nếu có lỗi, hãy xem xét log để tìm nguyên nhân
    - Các lỗi thường gặp: thiếu quyền thực thi cho scripts, lỗi kết nối database, lỗi trong migrations
+   - Nếu gặp lỗi `Cannot find module '/opt/render/project/src/dist/index.js'`, hãy kiểm tra:
+     * Xem script build-render.js đã được thực thi thành công chưa
+     * Đảm bảo thư mục dist đã được tạo và sao chép vào đúng vị trí 
+     * Đảm bảo file index.js đã được tạo với định dạng CommonJS
 4. Sau khi triển khai thành công:
    - Render sẽ cung cấp một URL cho ứng dụng của bạn (dạng: handcraft-store.onrender.com)
    - Truy cập URL này để kiểm tra xem trang web đã hoạt động chưa

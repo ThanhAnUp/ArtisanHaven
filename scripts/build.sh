@@ -3,8 +3,15 @@
 # Install dependencies
 npm install
 
-# Build the application
-npm run build
+# Make build-render.js executable
+chmod +x scripts/build-render.js
+
+# Build the application (using our custom build script)
+node scripts/build-render.js
+
+# Make migration and seed scripts executable
+chmod +x scripts/run-migrations.js
+chmod +x scripts/seed-data.js
 
 # Run database migrations
 node scripts/run-migrations.js
