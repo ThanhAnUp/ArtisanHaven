@@ -1,0 +1,70 @@
+error during build:
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'vite' imported from /opt/render/project/src/node_modules/.vite-temp/vite.config.ts.timestamp-1743645524330-044b124bcf5cb.mjs
+    at new NodeError (node:internal/errors:405:5)
+    at packageResolve (node:internal/modules/esm/resolve:916:9)
+    at moduleResolve (node:internal/modules/esm/resolve:973:20)
+    at defaultResolve (node:internal/modules/esm/resolve:1206:11)
+    at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:404:12)
+    at ModuleLoader.resolve (node:internal/modules/esm/loader:373:25)
+    at ModuleLoader.getModuleJob (node:internal/modules/esm/loader:250:38)
+    at ModuleWrap.<anonymous> (node:internal/modules/esm/module_job:76:39)
+    at link (node:internal/modules/esm/module_job:75:36)
+Client build failed, but server build might still be usable: Error: Command failed: npx vite build
+    at checkExecSyncError (node:child_process:890:11)
+    at execSync (node:child_process:962:15)
+    at [eval]:50:5
+    at runScriptInThisContext (node:internal/vm:143:10)
+    at node:internal/process/execution:100:14
+    at [eval]-wrapper:6:24
+    at runScript (node:internal/process/execution:83:62)
+    at evalScript (node:internal/process/execution:114:10)
+    at node:internal/main/eval_string:30:3 {
+  status: 1,
+  signal: null,
+  output: [ null, null, null ],
+  pid: 186,
+  stdout: null,
+  stderr: null
+}
+Copying build files to Render path...
+cp: 'dist/index.js' and '/opt/render/project/src/dist/index.js' are the same file
+cp: 'dist/main.js' and '/opt/render/project/src/dist/main.js' are the same file
+cp: 'dist/server' and '/opt/render/project/src/dist/server' are the same file
+Running database migrations...
+Connected to database.
+Migration 001_initial_schema.sql already executed, skipping.
+All migrations have been executed.
+Seeding initial data...
+Connected to database.
+Products seeded successfully.
+Workshops seeded successfully.
+Reviews seeded successfully.
+All data has been seeded successfully.
+==> Uploading build...
+==> Uploaded in 6.7s. Compression took 5.3s
+==> Build successful 🎉
+==> Deploying...
+==> Running 'npm start'
+> rest-express@1.0.0 start
+> NODE_ENV=production node dist/index.js
+file:///opt/render/project/src/dist/index.js:52
+  app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
+              ^
+SyntaxError: Unexpected token ':'
+    at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:152:18)
+    at ModuleLoader.moduleProvider (node:internal/modules/esm/loader:299:14)
+    at async link (node:internal/modules/esm/module_job:67:21)
+Node.js v18.20.8
+==> Exited with status 1
+==> Common ways to troubleshoot your deploy: https://render.com/docs/troubleshooting-deploys
+==> Running 'npm start'
+> rest-express@1.0.0 start
+> NODE_ENV=production node dist/index.js
+file:///opt/render/project/src/dist/index.js:52
+  app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
+              ^
+SyntaxError: Unexpected token ':'
+    at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:152:18)
+    at ModuleLoader.moduleProvider (node:internal/modules/esm/loader:299:14)
+    at async link (node:internal/modules/esm/module_job:67:21)
+Node.js v18.20.8
