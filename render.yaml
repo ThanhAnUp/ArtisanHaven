@@ -2,6 +2,7 @@ services:
   - type: web
     name: handcraft-store
     env: node
+    plan: free
     buildCommand: ./scripts/build.sh
     startCommand: npm start
     envVars:
