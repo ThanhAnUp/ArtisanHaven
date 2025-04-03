@@ -63,8 +63,13 @@ app.use((req, res, next) => {
     const { setupVite } = await import("./vite.js");
     await setupVite(app, server);
   } else {
-    const { serveStatic } = await import("./vite.js");
-    serveStatic(app);
+    // In production, serve static files from dist/public
+    const path = await import("path");
+    const distPath = path.resolve(import.meta.dirname, "public");
+    app.use(express.static(distPath));
+    app.use("*", (_req, res) => {
+      res.sendFile(path.resolve(distPath, "index.html"));
+    });
   }
 
   // ALWAYS serve the app on port 5000
