@@ -217,6 +217,8 @@
 
 ### Lỗi về ESM/CommonJS modules
 
+#### Lỗi named exports từ CommonJS module
+
 Khi gặp lỗi liên quan đến named exports từ thư viện CommonJS khi sử dụng ESM, giải pháp là sửa cách import:
 
 ```javascript
@@ -231,6 +233,30 @@ const { Client } = pkg;
 Các file có thể gặp vấn đề này:
 - scripts/run-migrations.js
 - scripts/seed-data.js
+
+#### Lỗi import.meta khi sử dụng định dạng CJS
+
+Khi gặp lỗi như sau trong quá trình build:
+```
+You need to set the output format to "esm" for "import.meta" to work correctly.
+```
+
+Lỗi này xảy ra vì chúng ta đang cố gắng sử dụng `import.meta` trong một môi trường yêu cầu định dạng ESM, nhưng lại đang build với định dạng CJS. Các giải pháp:
+
+1. Sử dụng TypeScript trực tiếp thay vì esbuild:
+   ```bash
+   npx tsc --esModuleInterop --skipLibCheck --module commonjs --target es2020 --outDir ./dist server/index.ts
+   ```
+
+2. Hoặc làm việc với path trực tiếp thay vì sử dụng import.meta:
+   ```javascript
+   const __dirname = path.dirname(fileURLToPath(import.meta.url));
+   // thay bằng
+   const __dirname = process.cwd();
+   ```
+
+3. Sử dụng quy trình build đơn giản hơn không phụ thuộc vào vite hoặc esbuild:
+   - Đoạn này đã được thực hiện trong scripts/build.sh của chúng ta
 
 ### Lỗi không tìm thấy file index.js sau khi triển khai
 
@@ -248,9 +274,9 @@ Khi gặp lỗi `Cannot find module '/opt/render/project/src/dist/index.js'` sau
    cp -r dist/* /opt/render/project/src/dist/
    ```
 
-4. Nếu vẫn gặp lỗi, có thể thay đổi startCommand trong render.yaml để cung cấp đường dẫn đầy đủ:
+4. Nếu vẫn gặp lỗi, có thể thay đổi startCommand trong render.yaml để sử dụng file main.js thay vì index.js:
    ```yaml
-   startCommand: NODE_ENV=production node /opt/render/project/src/dist/index.js
+   startCommand: NODE_ENV=production node /opt/render/project/src/dist/main.js
    ```
    
 5. Nếu sử dụng Node.js phiên bản mới hơn 18, hãy tạo một file .node-version trong thư mục gốc để chỉ định phiên bản Node.js:

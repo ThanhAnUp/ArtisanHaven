@@ -4,7 +4,7 @@ services:
     env: node
     plan: free
     buildCommand: ./scripts/build.sh
-    startCommand: NODE_ENV=production node /opt/render/project/src/dist/index.js
+    startCommand: NODE_ENV=production node /opt/render/project/src/dist/main.js
     envVars:
       - key: NODE_ENV
         value: production

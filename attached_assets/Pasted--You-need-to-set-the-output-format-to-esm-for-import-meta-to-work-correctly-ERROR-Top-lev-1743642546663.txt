@@ -1,0 +1,73 @@
+  You need to set the output format to "esm" for "import.meta" to work correctly.
+✘ [ERROR] Top-level await is currently not supported with the "cjs" output format
+    vite.config.ts:15:10:
+      15 │           await import("@replit/vite-plugin-cartographer").then((m...
+         ╵           ~~~~~
+▲ [WARNING] "import.meta" is not available with the "cjs" output format and will be empty [empty-import-meta]
+    vite.config.ts:23:24:
+      23 │       "@": path.resolve(import.meta.dirname, "client", "src"),
+         ╵                         ~~~~~~~~~~~
+  You need to set the output format to "esm" for "import.meta" to work correctly.
+▲ [WARNING] "import.meta" is not available with the "cjs" output format and will be empty [empty-import-meta]
+    vite.config.ts:24:30:
+      24 │       "@shared": path.resolve(import.meta.dirname, "shared"),
+         ╵                               ~~~~~~~~~~~
+  You need to set the output format to "esm" for "import.meta" to work correctly.
+▲ [WARNING] "import.meta" is not available with the "cjs" output format and will be empty [empty-import-meta]
+    vite.config.ts:25:30:
+      25 │ ...  "@assets": path.resolve(import.meta.dirname, "attached_assets"),
+         ╵                              ~~~~~~~~~~~
+  You need to set the output format to "esm" for "import.meta" to work correctly.
+▲ [WARNING] "import.meta" is not available with the "cjs" output format and will be empty [empty-import-meta]
+    vite.config.ts:28:21:
+      28 │   root: path.resolve(import.meta.dirname, "client"),
+         ╵                      ~~~~~~~~~~~
+  You need to set the output format to "esm" for "import.meta" to work correctly.
+5 of 6 warnings and 1 error shown (disable the message limit with --log-limit=0)
+Copying build files to Render path...
+cp: cannot stat 'dist/*': No such file or directory
+Running database migrations...
+Connected to database.
+Migration 001_initial_schema.sql already executed, skipping.
+All migrations have been executed.
+Seeding initial data...
+Connected to database.
+Products seeded successfully.
+Workshops seeded successfully.
+Reviews seeded successfully.
+All data has been seeded successfully.
+==> Uploading build...
+==> Uploaded in 6.4s. Compression took 3.0s
+==> Build successful 🎉
+==> Deploying...
+==> Running 'npm start'
+> rest-express@1.0.0 start
+> NODE_ENV=production node dist/index.js
+node:internal/modules/cjs/loader:1143
+  throw err;
+  ^
+Error: Cannot find module '/opt/render/project/src/dist/index.js'
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1140:15)
+    at Module._load (node:internal/modules/cjs/loader:981:27)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:128:12)
+    at node:internal/main/run_main_module:28:49 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+Node.js v18.20.8
+==> Exited with status 1
+==> Common ways to troubleshoot your deploy: https://render.com/docs/troubleshooting-deploys
+==> Running 'npm start'
+> rest-express@1.0.0 start
+> NODE_ENV=production node dist/index.js
+node:internal/modules/cjs/loader:1143
+  throw err;
+  ^
+Error: Cannot find module '/opt/render/project/src/dist/index.js'
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1140:15)
+    at Module._load (node:internal/modules/cjs/loader:981:27)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:128:12)
+    at node:internal/main/run_main_module:28:49 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
